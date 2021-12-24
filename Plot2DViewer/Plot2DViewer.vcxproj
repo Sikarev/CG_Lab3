@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AffineTransform.h" />
+    <ClInclude Include="AffineTransform3D.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Matrix.h" />
