@@ -1,10 +1,16 @@
 #pragma once
-#include "Model2D.h"
+#include <string>
+#include <fstream>
+#include "Matrix.h"
 
-class Model3D : protected Model2D {
+class Model3D {
 private:
+	Matrix<> Vertices;
+	Matrix<int> Edges;
 	Matrix<> ProjectedVertices;
 	Matrix<int> Faces;
+	Matrix<> CumulativeAT;
+	Matrix<> InitialVertices;
 
 public:
 	Model3D();										// Конструктор по умолчанию

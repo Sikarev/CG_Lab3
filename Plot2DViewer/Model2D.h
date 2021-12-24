@@ -8,7 +8,7 @@
 #include "AffineTransform.h"
 class Model2D
 {
-protected:
+private:
 	Matrix<> Vertices;
 	Matrix<int> Edges;
 	Matrix<> CumulativeAT;
