@@ -41,11 +41,3 @@ Matrix<> Scaling3D(double kx = 1, double ky = 1, double kz = 1) {
 		0, 0, 0, 1};
 	return Matrix<>(4, 4, T);
 }
-Matrix<> Scaling3D(double kx = 1, double ky = 1, double kz = 1) {
-	double T[16] = {
-		kx, 0, 0, 0,
-		0, ky, 0, 0,
-		0, 0, kz, 0,
-		0, 0, 0, 1 };
-	return Matrix<>(4, 4, T);
-}

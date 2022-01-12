@@ -44,6 +44,9 @@
     <ClInclude Include="AffineTransform3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Camera3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="de.txt">
