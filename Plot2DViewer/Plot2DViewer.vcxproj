@@ -74,6 +74,7 @@
     <ClInclude Include="Model2D.h" />
     <ClInclude Include="Model3D.h" />
     <ClInclude Include="Scene2D.h" />
+    <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="de.txt" />
