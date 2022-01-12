@@ -79,3 +79,8 @@ double Model3D::GetVertexY(int num) {
 double Model3D::GetVertexZ(int num) {
 	return Vertices(3, num) / Vertices(4, num);
 }
+
+void Model3D::Apply(Matrix<> AT) {
+	CumulativeAT = AT * CumulativeAT;
+	Vertices = CumulativeAT * InitialVertices;
+}
