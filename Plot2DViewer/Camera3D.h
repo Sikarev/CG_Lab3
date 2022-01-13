@@ -14,7 +14,7 @@ protected:
 	void setT(Vector3D<> point);
 	void setD(double value);
 public:
-	Camera3D(double X0, double Y0, double px, double py, double c) : Camera2D(X0, Y0, px, py, c), Ov(0, 0, 0), T(0, 1, 0), N(0, 0, 1), D(16) { UpdateCamera(); };
+	Camera3D(double X0, double Y0, double px, double py, double c = 0) : Camera2D(X0, Y0, px, py, c), Ov(0, 0, 0), T(0, 1, 0), N(0, 0, 1), D(16) { UpdateCamera(); };
 
 	void UpdateCamera();
 };

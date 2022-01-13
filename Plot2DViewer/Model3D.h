@@ -29,6 +29,9 @@ public:
 	double GetVertexX(int num);
 	double GetVertexY(int num);
 	double GetVertexZ(int num);
+	double getProjVertexX(int i) { return ProjectedVertices(1, i) / getProjVertexW(i); }
+	double getProjVertexY(int i) { return ProjectedVertices(2, i) / getProjVertexW(i); }
+	double getProjVertexW(int i) { return ProjectedVertices(3, i); };
 	void Apply(Matrix<> AT);		// Применение к модели аффинного преобразования
 	void Project(Matrix<>);			// Проецирование модели
 };
