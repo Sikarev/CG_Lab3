@@ -8,20 +8,23 @@ class Model3D {
 private:
 	Matrix<> Vertices;			// Вершины
 	Matrix<int> Edges;			// Рёбра
-	Matrix<int> Faces;			// Грани
+	Matrix<int> Facets;			// Грани
 	Matrix<> ProjectedVertices;
 	Matrix<> CumulativeAT;
 	Matrix<> InitialVertices;
 
 public:
-	Model3D() : Vertices(), Edges(), ProjectedVertices(), Faces(), CumulativeAT(Translation3D()), InitialVertices() {};										// Конструктор по умолчанию
-	Model3D(const Matrix<> V, const Matrix<int> F) : Vertices(V), Faces(F), CumulativeAT(Translation3D()), InitialVertices(V) { SetEdges(); };	// Конструктор модели по заданным карте вершин и карте граней
-	Model3D(string vData, string fData);    // Конструктор создания модели по именам файлов, в которых лежат карта вершин и карта граней
+	Model3D() : Vertices(), Edges(), ProjectedVertices(), Facets(),			// Конструктор по умолчанию
+		CumulativeAT(Translation3D()), InitialVertices() {};				
+	Model3D(const Matrix<> V, const Matrix<int> F) :						// Конструктор модели по заданным карте вершин и карте граней
+		Vertices(V), Facets(F), ProjectedVertices(),
+		CumulativeAT(Translation3D()), InitialVertices(V) { SetEdges(); };	
+	Model3D(string vData, string fData);									// Конструктор создания модели по именам файлов, в которых лежат карта вершин и карта граней
 
 
 	void SetEdges();				// Создание карты рёбер по заданной карте граней
 	Matrix<> GetVertices() { return Vertices; };
-	Matrix<int> GetFaces() { return Faces; };
+	Matrix<int> GetFacets() { return Facets; };
 	Matrix<int> GetEdges() { return Edges; };
 	double GetVertexX(int num);
 	double GetVertexY(int num);
@@ -45,7 +48,7 @@ Model3D::Model3D(string vData, string fData) {
 		fin >> size;
 		Matrix<int> fInput(size, 3);
 		fin >> fInput;
-		Faces = fInput;
+		Facets = fInput;
 	}
 	fin.close();
 	InitialVertices = Matrix<>(Vertices);
@@ -54,15 +57,15 @@ Model3D::Model3D(string vData, string fData) {
 
 void Model3D::SetEdges() {
 	const int SIZE = Vertices.ColsCount();
-	const int FACES_COLS_COUNT = Faces.ColsCount();
-	const int FACES_EDGES_COUNT = Faces.RowsCount();
+	const int FACETS_COLS_COUNT = Facets.ColsCount();
+	const int FACETS_EDGES_COUNT = Facets.RowsCount();
 	Matrix<> edges(SIZE);
-	for (int currentFace = 1; currentFace <= FACES_EDGES_COUNT; currentFace++) {
-		for (int edge = 1; edge <= FACES_COLS_COUNT; edge++) {
-			int currentEdge = Faces(currentFace, edge);
-			for (int i = 1; i <= FACES_COLS_COUNT; i++) {
+	for (int currentFace = 1; currentFace <= FACETS_EDGES_COUNT; currentFace++) {
+		for (int edge = 1; edge <= FACETS_COLS_COUNT; edge++) {
+			int currentEdge = Facets(currentFace, edge);
+			for (int i = 1; i <= FACETS_COLS_COUNT; i++) {
 				if (i != edge) {
-					int boundedEdge = Faces(currentFace, i);
+					int boundedEdge = Facets(currentFace, i);
 					edges(currentEdge, boundedEdge) = 1;
 				}
 			}
@@ -83,4 +86,8 @@ double Model3D::GetVertexZ(int num) {
 void Model3D::Apply(Matrix<> AT) {
 	CumulativeAT = AT * CumulativeAT;
 	Vertices = CumulativeAT * InitialVertices;
+}
+
+void Model3D::Project(Matrix<> P) {
+	ProjectedVertices = P * Vertices;
 }

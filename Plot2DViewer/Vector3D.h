@@ -10,6 +10,7 @@ public:
 
 	double length();
 	double scalar(const Vector3D&);
+	Vector3D normalize();
 
 	Vector3D operator = (const Vector3D&);
 	Vector3D operator + (const Vector3D&);
@@ -26,6 +27,16 @@ double Vector3D<T>::length() {
 template <typename T>
 double Vector3D<T>::scalar(const Vector3D& V) {
 	return x * V.x + y * V.y + z * V.z;
+}
+
+template <typename T>
+Vector3D<T> Vector3D<T>::normalize() {
+	double len = length();
+	Vector3D<T> res;
+	res.x = x / len;
+	res.y = y / len;
+	res.z = z / len;
+	return res;
 }
 
 template <typename T>
@@ -56,7 +67,7 @@ Vector3D<T> Vector3D<T>::operator-(const Vector3D& V) {
 }
 
 template <typename T>
-Vector3D<T> Vector3D<T>::operator*(const Vector3D& V) {
+Vector3D<T> Vector3D<T>::operator*(const Vector3D& V) { // ?????
 	Vector3D res;
 	res.x = z * V.y - y * V.z;
 	res.y = x * V.z - z * V.x;
