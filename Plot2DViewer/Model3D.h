@@ -56,13 +56,14 @@ Model3D::Model3D(string vData, string fData) {
 	fin.close();
 	InitialVertices = Matrix<>(Vertices);
 	CumulativeAT = Matrix<>(Translation3D());
+	SetEdges();
 }
 
 void Model3D::SetEdges() {
 	const int SIZE = Vertices.ColsCount();
 	const int FACETS_COLS_COUNT = Facets.ColsCount();
 	const int FACETS_EDGES_COUNT = Facets.RowsCount();
-	Matrix<> edges(SIZE);
+	Matrix<int> edges(SIZE);
 	for (int currentFace = 1; currentFace <= FACETS_EDGES_COUNT; currentFace++) {
 		for (int edge = 1; edge <= FACETS_COLS_COUNT; edge++) {
 			int currentEdge = Facets(currentFace, edge);
@@ -74,6 +75,7 @@ void Model3D::SetEdges() {
 			}
 		}
 	}
+	Edges = edges;
 }
 
 double Model3D::GetVertexX(int num) {

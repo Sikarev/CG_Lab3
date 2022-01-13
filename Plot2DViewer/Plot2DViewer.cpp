@@ -1,10 +1,10 @@
 #include <windows.h>
 #include <windowsx.h>
 #include "Data.h"
-#include "Scene2D.h"
+#include "Scene3D.h"
 #include "Matrix.h"
-#include "AffineTransform.h"
-#include "Model2D.h"
+#include "AffineTransform3D.h"
+#include "Model3D.h"
 
 LRESULT _stdcall WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);						// прототип оконной процедуры
 int _stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)		// основная процедура
@@ -46,7 +46,7 @@ int _stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 // В основном модуле объявляется только одна глобальная переменная - создаётся объект класса Scene2D
 // Все дальнейшие действия осуществляются посредством обращения к методам, реализованным в этом классе
-Scene2D scene(X0,Y0,px,py,c, initalModel);
+Scene3D scene(X0, Y0, px, py, verticesData, facetsData);
 
 LRESULT _stdcall WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)		// оконная процедура принимает и обрабатывает все сообщения, отправленные окну
 {
@@ -112,54 +112,86 @@ LRESULT _stdcall WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)		// 
 		switch (wParam) {
 			case 0x41:
 			case VK_LEFT: {
-				scene.Model.Apply(Translation(-translationSpeed, 0));
+				scene.Apply(Translation3D(translationSpeed, 0, 0));
 				break;
 			}
 			case 0x44:
 			case VK_RIGHT: {
-				scene.Model.Apply(Translation(translationSpeed, 0));
+				scene.Apply(Translation3D(-translationSpeed, 0, 0));
 				break;
 			}
 			case 0x57:
 			case VK_UP: {
-				scene.Model.Apply(Translation(0, translationSpeed));
+				scene.Apply(Translation3D(0, translationSpeed, 0));
 				break;
 			}
 			case 0x53:
 			case VK_DOWN: {
-				scene.Model.Apply(Translation(0, -translationSpeed));
+				scene.Apply(Translation3D(0, -translationSpeed, 0));
 				break;
 			}
-			case 0x51: {
-				scene.Model.Apply(Rotation(rotationSpeed));
+			case 0x31: {
+				scene.Apply(RotationX3D(rotationSpeed));
 				break;
 			}
-			case 0x45: {
-				scene.Model.Apply(Rotation(-rotationSpeed));
+			case 0x32: {
+				scene.Apply(RotationX3D(-rotationSpeed));
+				break;
+			}
+			case 0x33: {
+				scene.Apply(RotationY3D(rotationSpeed));
+				break;
+			}
+			case 0x34: {
+				scene.Apply(RotationY3D(-rotationSpeed));
+				break;
+			}
+			case 0x35: {
+				scene.Apply(RotationZ3D(rotationSpeed));
+				break;
+			}
+			case 0x36: {
+				scene.Apply(RotationZ3D(-rotationSpeed));
+				break;
+			}
+			case 0x46: {
+				scene.Apply(Scaling3D(-1, -1, -1));
+				break;
+			}
+			case 0x47: {
+				scene.Apply(Scaling3D(1, -1, -1));
+				break;
+			}
+			case 0x48: {
+				scene.Apply(Scaling3D(-1, 1, -1));
+				break;
+			}
+			case 0x4A: {
+				scene.Apply(Scaling3D(-1, -1, 1));
 				break;
 			}
 			case 0x5A: {
-				scene.Model.Scale(1 + scaleSpeed, 1 + scaleSpeed);
+				scene.Apply(Scaling3D(1 + scaleSpeed, 1 + scaleSpeed, 1 + scaleSpeed));
 				break;
 			}
 			case 0x58: {
-				scene.Model.Scale(1 - scaleSpeed, 1 - scaleSpeed);
+				scene.Apply(Scaling3D(1 - scaleSpeed, 1 - scaleSpeed, 1 - scaleSpeed));
 				break;
 			}
 			case 0x43: {
-				scene.Model.Scale(1 + scaleSpeed, 1);
+				scene.Apply(Scaling3D(1 + scaleSpeed, 1, 1));
 				break;
 			}
 			case 0x56: {
-				scene.Model.Scale(1 - scaleSpeed, 1);
+				scene.Apply(Scaling3D(1 - scaleSpeed, 1, 1));
 				break;
 			}
 			case 0x42: {
-				scene.Model.Scale(1, 1 + scaleSpeed);
+				scene.Apply(Scaling3D(1, 1 + scaleSpeed, 1));
 				break;
 			}
 			case 0x4e: {
-				scene.Model.Scale(1, 1 - scaleSpeed);
+				scene.Apply(Scaling3D(1, 1 - scaleSpeed, 1));
 				break;
 			}
 			default: {
