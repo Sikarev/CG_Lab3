@@ -23,6 +23,7 @@ public:
 
 
 	void SetEdges();				// Создание карты рёбер по заданной карте граней
+	bool isBinded(int v1, int v2);
 	Matrix<> GetVertices() { return Vertices; };
 	Matrix<int> GetFacets() { return Facets; };
 	Matrix<int> GetEdges() { return Edges; };
@@ -76,6 +77,10 @@ void Model3D::SetEdges() {
 		}
 	}
 	Edges = edges;
+}
+
+bool Model3D::isBinded(int v1, int v2) {
+	return Edges(v1, v2) == 1;
 }
 
 double Model3D::GetVertexX(int num) {

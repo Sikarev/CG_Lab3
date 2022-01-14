@@ -23,8 +23,10 @@ public:
 
 		for (int i = 1; i <= rows; i++) {
 			for (int j = i + 1; j <= cols; j++) {
-				MoveTo(Model.getProjVertexX(i), Model.getProjVertexY(i));
-				LineTo(dc, Model.getProjVertexX(j), Model.getProjVertexY(j));
+				if (Model.isBinded(i, j)) {
+					MoveTo(Model.getProjVertexX(i), Model.getProjVertexY(i));
+					LineTo(dc, Model.getProjVertexX(j), Model.getProjVertexY(j));
+				}
 			}
 		}
 	}

@@ -46,10 +46,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="de.txt">
+    <Text Include="dv.txt">
       <Filter>Header Files</Filter>
     </Text>
-    <Text Include="dv.txt">
+    <Text Include="df.txt">
       <Filter>Header Files</Filter>
     </Text>
   </ItemGroup>

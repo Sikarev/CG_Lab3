@@ -75,7 +75,7 @@
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="de.txt" />
+    <Text Include="df.txt" />
     <Text Include="dv.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
