@@ -130,6 +130,14 @@ LRESULT _stdcall WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)		// 
 				scene.Apply(Translation3D(0, -translationSpeed, 0));
 				break;
 			}
+			case VK_NUMPAD2: {
+				scene.Apply(Translation3D(0, 0, translationSpeed));
+				break;
+			}
+			case VK_NUMPAD8: {
+				scene.Apply(Translation3D(0, 0, -translationSpeed));
+				break;
+			}
 			case 0x31: {
 				scene.Apply(RotationX3D(rotationSpeed));
 				break;
